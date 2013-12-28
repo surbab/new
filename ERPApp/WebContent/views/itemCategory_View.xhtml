@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+<h:form id="form" enctype="multipart/form-data">
+
+	 <p:toolbar style="width:100%">  
+    <p:toolbarGroup align="left"> 
+	<p:commandButton value="Add New" update="itemCatsTable"
+		onclick="nextTab()" actionListener="#{itemMB.addItem}"
+		style="margin-top:0px;height:28px;margin-left:1px;" ajax="false">
+	</p:commandButton>
+	 <p:separator />
+	<p:commandButton value="Export" update="itemCatsTable" icon="ui-icon-open"
+		
+		type="button" ajax="false">
+	</p:commandButton>
+	</p:toolbarGroup>
+	</p:toolbar>
+
+
+	 <p:growl id="messages" showDetail="true"/> 
+
+	<br/>
+	<p:dataTable var="itemCat" value="#{itemMB.category}"
+		rowKey="#{itemCat.name}" widgetVar="itemCategoryWid" paginator="true"
+		rows="10" filteredValue="#{itemMB.filteredCategory}"  editable="true"
+		id="itemCatsTable" tableStyle="width:100%;">
+
+
+
+		<f:facet name="header">
+			<p:outputPanel>
+				<h:outputText value="Search all fields:" />
+				<p:inputText id="globalFilter" onkeyup="itemCategoryWid.filter()"
+					style="width:150px" />
+			</p:outputPanel>
+			
+		</f:facet>
+		
+		<p:ajax event="rowEdit" listener="#{itemMB.onEdit}" update="itemCatsTable" />  
+        <p:ajax event="rowEditCancel" listener="#{itemMB.onCancel}" update="itemCatsTable" />
+        
+		<p:column headerText="Name" sortBy="#{itemCat.name}"
+			filterBy="#{itemCat.name}" id="catname"> 
+			 <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{itemCat.name}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{itemCat.name}" style="width:100%"/>  
+                </f:facet>  
+            </p:cellEditor> 
+              
+        </p:column>
+
+		<p:column headerText="Description" sortBy="#{itemCat.desc}"
+			filterBy="#{itemCat.desc}" id="catdes"> 
+			<p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{itemCat.desc}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{itemCat.desc}" style="width:100%"/>  
+                </f:facet>  
+            </p:cellEditor> 
+              
+        </p:column>
+        <p:column style="width:4%">  
+                <p:commandButton id="selectButton1" update=":#{p:component('display')}" oncomplete="PF('catDialog').show()" icon="ui-icon-search" title="View">  
+                <f:setPropertyActionListener value="#{itemCat}" target="#{itemMB.selectedCategory}" />  
+            </p:commandButton>  
+        </p:column>
+		 <p:column headerText="Edit" style="width:6%">  
+            <p:rowEditor />  
+        </p:column> 
+        <p:column style="width:4%">  
+                <p:commandButton id="selectButton2" icon="ui-icon-trash" title="Delete">  
+                <f:setPropertyActionListener value="#{itemCat}" target="#{itemMB.deleteItem}" />  
+            </p:commandButton>  
+        </p:column> 
+	</p:dataTable>
+
+
+	 <p:dialog header="Category Detail" widgetVar="catDialog" resizable="false" id="catDlg"  
+                showEffect="fade" hideEffect="explode" modal="true">  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+  
+            
+            <h:outputText value="Name:" />  
+            <h:outputText value="#{itemMB.selectedCategory.name}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Description:" />  
+            <h:outputText value="#{itemMB.selectedCategory.desc}" style="font-weight:bold"/>  
+  
+  
+            <h:outputText value="Created By:" />  
+            <h:outputText value="#{itemMB.selectedCategory.createdBy}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Created On:" />  
+            <h:outputText value="#{itemMB.selectedCategory.created}" style="font-weight:bold"/>  
+  
+  			<h:outputText value="Updated By:" />  
+            <h:outputText value="#{itemMB.selectedCategory.updatedBy}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Updated On:" />  
+            <h:outputText value="#{itemMB.selectedCategory.updated}" style="font-weight:bold"/>
+        </h:panelGrid>  
+  
+    </p:dialog> 
+
+</h:form>
+
+
+</html>

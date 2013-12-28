@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="/template/masterTemplate.xhtml"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets">
+		<ui:define name="title">Item Category View</ui:define>
+
+		<ui:define name="content">
+
+
+
+			
+
+
+				<p:tabView  id="tabView" widgetVar="tabViewVar" activeIndex="#{bookController.tabIndex}" style="width:800px;"  >
+				
+				<p:ajax event="tabChange" update="tabView"></p:ajax>
+				 <c:forEach items="#{bookController.tabNodes}" var="tab">
+
+				      <p:tab  title="#{tab.name}"  closable="true" >
+				      
+		        
+				         <ui:include src="#{tab.view}" />
+				      </p:tab>
+				
+				   </c:forEach>
+				
+					
+				</p:tabView>
+				
+
+			
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

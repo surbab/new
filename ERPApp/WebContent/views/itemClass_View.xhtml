@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+			<h:form id="form" enctype="multipart/form-data">
+		   
+
+		<p:dataTable var="itemCat" value="#{itemMB.category}" rowKey="#{itemCat.name}" widgetVar="itemCategoryWid"  paginator="true" rows="10"  
+                selection="#{itemMB.selectedCategory}" selectionMode="single" filteredValue="#{itemMB.filteredCategory}" id="itemCatsTable" style="width:800px;">  
+  
+        <p:ajax event="rowSelect" update=":tabView:form:display" oncomplete="ItemCatDialog.show()" />  
+  
+        <f:facet name="header">  
+            <p:outputPanel>  
+                <h:outputText value="Search all fields:" />  
+                <p:inputText id="globalFilter" onkeyup="itemCategoryWid.filter()" style="width:150px" />  
+            </p:outputPanel>  
+        </f:facet>  
+        <p:column headerText="Name" sortBy="#{itemCat.name}" filterBy="#{itemCat.name}" id="catname">  
+            #{itemCat.name}  
+        </p:column>  
+  
+        <p:column headerText="Description" sortBy="#{itemCat.desc}" filterBy="#{itemCat.desc}" id="catdes">  
+            #{itemCat.desc}  
+        </p:column>    
+  
+    </p:dataTable>  
+  
+    <p:dialog header="Item Category Detail" widgetVar="ItemCatDialog" resizable="false"  
+              width="600" showEffect="explode" hideEffect="explode">  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4">  
+  
+           
+          
+        </h:panelGrid>  
+    </p:dialog>
+			</h:form>
+
+
+</html>

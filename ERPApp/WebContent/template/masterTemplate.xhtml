@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+
+ 
+<h:head>
+
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+
+
+    	<title>
+            <ui:insert name="title"><h:outputText value="ERP Application" /></ui:insert>
+        </title>
+        <style type="text/css">
+                                  
+           .ui-widget, .ui-widget .ui-widget {
+                   font-size:12px !important;
+           }
+           .borderlessFullWidthPanelGrid tr {
+           border-style: hidden !important;
+			vertical-align: top;
+			border: none !important;
+			COLOR: #3e7ab6;
+			width: 100%;
+			}
+			
+			.borderlessHalfWidthColumn td {
+			border-style: hidden !important;
+			vertical-align: top;
+			border: none !important;
+			COLOR: #3e7ab6;
+			
+			}
+           
+
+.ui-tree{
+border: 0!important;
+	margin: 0!important;
+	padding: 0!important;
+}
+           </style>
+          <script type="text/javascript">
+          
+         
+          
+          function nextTab() {
+        	  alert(typeof(jQuery(tabViewVar.jqId).tabs('option', 'selected')));
+              alert(typeof(jQuery(tabViewVar.jqId).tabs('option', 'selected') + 1));
+              var nextTabIx = jQuery(tabViewVar.jqId).tabs('option', 'selected') + 1;
+              tabViewVar.selectTab(nextTabIx);
+        	}
+          </script>
+           
+</h:head>
+
+<body>
+	<div id="page">
+ 
+	    <div id="header">
+		<ui:insert name="header" >
+		  <ui:include src="header.xhtml" />
+		</ui:insert>
+	    </div>
+	    
+	    
+ 
+	    <div id="content">
+	    <h:panelGrid columns="2" cellspacing="4" cellpadding="4" styleClass="borderlessFullWidthPanelGrid borderlessHalfWidthColumn">
+              
+				<p:column style="width:40%">
+                   
+                    <p:tree id="bookTree" value="#{bookController.root}" var="node" selectionMode="single"
+                            selection="#{bookController.selectedNode}">
+                        <p:ajax event="select" listener="#{bookController.onNodeSelect}"/>
+                        <p:treeNode expandedIcon="ui-icon-folder-open"
+                                    collapsedIcon="ui-icon-folder-collapsed">
+                            <h:outputText value="#{node.name}"/>
+                        </p:treeNode>
+                        <p:treeNode type="chapteritem" icon="ui-icon-document">
+                            <h:outputText value="#{node.name}"/>
+                        </p:treeNode>
+                    </p:tree>
+               </p:column>
+               <p:column style="width:60%">
+                    	<ui:insert name="content" >
+	   					</ui:insert>
+	   			</p:column>
+	   			
+               
+            </h:panelGrid>
+	    
+	    
+	  
+	    </div>
+ 
+	    <div id="footer1" >
+	    	<ui:insert name="footer" >
+	    	  <ui:include src="footer.xhtml" />
+	    	</ui:insert>
+    	 </div>
+ 
+        </div>
+</body>
+
+</html>
